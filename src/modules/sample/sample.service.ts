@@ -1,7 +1,9 @@
 import { PrismaClient, Sample } from "../../generated/prisma";
 import { ApiError } from "../../utils/api-error";
-import {injectable} from "tsyringe"
+import { injectable } from "tsyringe";
 import { PrismaService } from "../prisma/prisma.service";
+import { CreateSampleDTO } from "./dto/create-sample.dto";
+import { UpdateSampleDTO } from "./dto/update-sample.dto";
 
 @injectable()
 export class SampleService {
@@ -20,13 +22,13 @@ export class SampleService {
     return await this.findSampleId(id);
   };
 
-  createSample = async (body: Sample) => {
+  createSample = async (body: CreateSampleDTO) => {
     return await this.prisma.sample.create({
       data: body,
     });
   };
 
-  updateSample = async (id: number, body: Partial<Sample>) => {
+  updateSample = async (id: number, body: UpdateSampleDTO) => {
     await this.findSampleId(id);
 
     return await this.prisma.sample.update({

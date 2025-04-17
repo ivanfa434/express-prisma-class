@@ -1,6 +1,9 @@
 import { Router } from "express";
 import { injectable } from "tsyringe";
 import { SampleController } from "./sample.controller";
+import { validateBody } from "../../middlewares/validation.middleware";
+import { CreateSampleDTO } from "./dto/create-sample.dto";
+import { UpdateSampleDTO } from "./dto/update-sample.dto";
 
 @injectable()
 export class SampleRouter {
@@ -16,8 +19,16 @@ export class SampleRouter {
   private initializeRoutes = () => {
     this.router.get("/", this.sampleController.getSamples);
     this.router.get("/:id", this.sampleController.getSample);
-    this.router.post("/", this.sampleController.createSample);
-    this.router.patch("/:id", this.sampleController.updateSample);
+    this.router.post(
+      "/",
+      validateBody(CreateSampleDTO),
+      this.sampleController.createSample
+    );
+    this.router.patch(
+      "/:id",
+      validateBody(UpdateSampleDTO),
+      this.sampleController.updateSample
+    );
     this.router.delete("/:id", this.sampleController.deleteSample);
   };
 
