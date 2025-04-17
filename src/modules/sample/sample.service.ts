@@ -1,10 +1,13 @@
 import { PrismaClient, Sample } from "../../generated/prisma";
 import { ApiError } from "../../utils/api-error";
+import {injectable} from "tsyringe"
+import { PrismaService } from "../prisma/prisma.service";
 
+@injectable()
 export class SampleService {
-  private prisma: PrismaClient;
+  private prisma: PrismaService;
 
-  constructor(PrismaClient: PrismaClient) {
+  constructor(PrismaClient: PrismaService) {
     this.prisma = PrismaClient;
   }
 

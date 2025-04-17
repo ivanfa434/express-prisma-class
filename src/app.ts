@@ -1,7 +1,9 @@
-import express, { Express, json } from "express";
 import cors from "cors";
-import { errorMiddleware } from "./middlewares/error.middleware";
+import express, { Express, json } from "express";
+import "reflect-metadata";
+import { container } from "tsyringe";
 import { PORT } from "./config";
+import { errorMiddleware } from "./middlewares/error.middleware";
 import { SampleRouter } from "./modules/sample/sample.router";
 
 export class App {
@@ -20,17 +22,18 @@ export class App {
   }
 
   private routes() {
-    const sampleRouter = new SampleRouter();
-    
+    const sampleRouter = container.resolve(SampleRouter);
+
     this.app.use("/samples", sampleRouter.getRouter());
   }
+
   private handleError() {
     this.app.use(errorMiddleware);
   }
 
   public start() {
     this.app.listen(PORT, () => {
-      console.log(`Server running on port ${PORT}`);
+      console.log(`SERVER RUNNING ON PORT: ${PORT}`);
     });
   }
 }

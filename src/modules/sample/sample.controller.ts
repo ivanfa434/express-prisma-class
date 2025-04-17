@@ -1,7 +1,8 @@
 import { NextFunction, Request, Response } from "express";
 import { SampleService } from "./sample.service";
-import { PrismaClient } from "@prisma/client";
+import { injectable } from "tsyringe";
 
+@injectable()
 export class SampleController {
   private sampleService: SampleService;
   constructor(SampleService: SampleService) {
