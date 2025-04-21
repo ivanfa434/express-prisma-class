@@ -9,13 +9,14 @@ export function validateBody(dtoClass: any) {
     const errors = await validate(dtoInstance);
 
     if (errors.length > 0) {
-      const message = errors.map((error) =>
-        Object.values(error.constraints || {}).join(", ")
-      );
+      const message = errors
+        .map((error) => Object.values(error.constraints || {}))
+        .join(", ");
 
       res.status(400).send({ message });
       return;
     }
+
     next();
   };
 }
