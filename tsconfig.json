@@ -10,5 +10,6 @@
     "allowJs": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true
-  }
+  },
+  "exclude": ["dist", "test", "**/*.spec.ts", "jest.config.js"] // <=== ini supaya tidak masuk ke dalam folder dist
 }
